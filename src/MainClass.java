@@ -1,4 +1,7 @@
+import com.sun.javafx.print.PrintHelper;
+
 import java.lang.reflect.Array;
+import java.security.Principal;
 import java.util.Arrays;
 
 /**
@@ -9,6 +12,11 @@ public class MainClass {
         invertArray();
         fillInArray();
         multiplyLess6();
+        makeSquareArrayDiag();
+        findMinMax();
+
+        int[] balanceArr = {1, 1, 1, 2, 1,6};
+        System.out.println(checkBalance(balanceArr));
     }
 
     public static void invertArray() {
@@ -33,6 +41,37 @@ public class MainClass {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < 6) arr[i] = arr[i] * 2;
         }
-        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void makeSquareArrayDiag() {
+        int[][] arr = new int[5][5];
+        for (int i = 0, j = arr.length - 1; i < arr.length; i++, j--) {
+            arr[i][i] = 1;
+            arr[i][j] = 1;
+        }
+    }
+
+    public static void findMinMax() {
+        int[] arr = {1, 45, 3, 6, 67, -7, 4, -10};
+        int max = arr[1];
+        int min = arr[1];
+        for (int i = 0; i < arr.length; i++) {
+            if (max < arr[i]) max = arr[i];
+            if (min > arr[i]) min = arr[i];
+        }
+        System.out.println("Max=" + max + " Min=" + min);
+    }
+
+    public static boolean checkBalance(int[] arr) {
+        int left = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            int right = 0;
+            left += arr[i];
+            for (int j = i + 1; j < arr.length; j++) {
+                right += arr[j];
+            }
+            if (left==right) return true;
+        }
+        return false;
     }
 }
